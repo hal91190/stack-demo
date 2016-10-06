@@ -12,7 +12,7 @@ void stack_create(stack_t *stack) {
     *stack = NULL;
 }
 
-void stack_pop(stack_t *stack, int top_value) {
+void stack_push(stack_t *stack, int top_value) {
     stack_t top = malloc(sizeof(element_t));
     top->value = top_value;
     top->suivant = *stack;
@@ -34,7 +34,7 @@ int main() {
     stack_print(stack);
 
     for (int i = 0; i < 10; ++i) {
-        stack_pop(&stack, i);
+        stack_push(&stack, i);
     }
     stack_print(stack);
 
