@@ -1,9 +1,9 @@
 #ifndef STACK_DEMO_STACK_H
 #define STACK_DEMO_STACK_H
 
-typedef int value_t;
-typedef struct element element_t;
-typedef struct element *stack_t;
+#include "linkedlist.h"
+
+typedef linkedlist_t stack_t;
 
 void stack_create(stack_t *stack);
 void stack_delete(stack_t *stack);
