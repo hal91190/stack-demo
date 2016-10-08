@@ -47,7 +47,6 @@ void linkedlist_add_to_end(linkedlist_t *linkedlist, value_t value) {
         *linkedlist = element_create(value, NULL);
     } else {
         linkedlist_add_to_end(&((*linkedlist)->suivant), value);
-        element_create((*linkedlist)->value, (*linkedlist)->suivant);
     }
 }
 
