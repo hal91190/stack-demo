@@ -15,15 +15,21 @@ linkedlist_t element_create(value_t value, linkedlist_t suivant) {
     return new_element;
 }
 
+value_t element_delete(linkedlist_t *linkedlist, linkedlist_t new_linkedlist) {
+    linkedlist_t to_free = *linkedlist;
+    value_t value = to_free->value;
+    free(to_free);
+    *linkedlist = new_linkedlist;
+    return value;
+}
+
 void linkedlist_create(linkedlist_t *linkedlist) {
     *linkedlist = NULL;
 }
 
 void linkedlist_delete(linkedlist_t *linkedlist) {
     if (*linkedlist) {
-        linkedlist_t to_free = *linkedlist;
-        *linkedlist = (*linkedlist)->suivant;
-        free(to_free);
+        element_delete(linkedlist, (*linkedlist)->suivant);
         linkedlist_delete(linkedlist);
     }
 }
@@ -35,11 +41,7 @@ void linkedlist_add_in_front(linkedlist_t *linkedlist, value_t value) {
 value_t linkedlist_remove_from_front(linkedlist_t *linkedlist) {
     if (*linkedlist == NULL)
         return INT_MAX;
-    linkedlist_t old_front = *linkedlist;
-    *linkedlist = (*linkedlist)->suivant;
-    value_t value = old_front->value;
-    free(old_front);
-    return value;
+    return element_delete(linkedlist, (*linkedlist)->suivant);
 }
 
 void linkedlist_add_to_end(linkedlist_t *linkedlist, value_t value) {
@@ -54,10 +56,7 @@ value_t linkedlist_remove_from_end(linkedlist_t *linkedlist) {
     if (*linkedlist == NULL)
         return INT_MAX;
     if ((*linkedlist)->suivant == NULL) {
-        value_t value = (*linkedlist)->value;
-        free(*linkedlist);
-        *linkedlist = NULL;
-        return value;
+        return element_delete(linkedlist, NULL);
     } else {
         return linkedlist_remove_from_end(&((*linkedlist)->suivant));
     }
