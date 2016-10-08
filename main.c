@@ -1,8 +1,10 @@
 #include <stdio.h>
 
 #include "stack.h"
+#include "queue.h"
 
 int main() {
+    puts("Stack test");
     stack_t stack;
     stack_create(&stack);
     stack_print(stack);
@@ -17,18 +19,24 @@ int main() {
         stack_print(stack);
     }
 
-    // Pour tester les autres méthodes de la liste chaînée
+    stack_delete(&stack);
+
+    puts("Queue test");
+    queue_t queue;
+    queue_create(&queue);
+    queue_print(queue);
+
     for (int i = 0; i < 10; ++i) {
-        linkedlist_add_to_end(&stack, i);
+        queue_enqueue(&queue, i);
     }
-    stack_print(stack);
+    queue_print(queue);
 
     for (int i = 0; i < 11; ++i) {
-        printf("%d | ", linkedlist_remove_from_end(&stack));
-        stack_print(stack);
+        printf("%d | ", queue_dequeue(&queue));
+        queue_print(queue);
     }
 
-    stack_delete(&stack);
+    queue_delete(&queue);
 
     return 0;
 }
